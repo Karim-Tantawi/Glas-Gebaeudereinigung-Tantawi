@@ -1,0 +1,353 @@
+/* Lightbox über alles legen */
+#lightbox {
+    position: fixed;
+    inset: 0;               /* oben, rechts, unten, links = 0 */
+    background: rgba(0,0,0,0.85);
+    display: none;          /* nur wenn aktiv */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;          /* immer im Vordergrund */
+}
+
+/* Bild in voller Größe, max 90% der Fensterhöhe/breite */
+#lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+    object-fit: contain;     /* Bild proportional skalieren */
+}
+
+/* Wenn aktiv */
+#lightbox.show {
+    display: flex;
+}
+
+/* ===============================
+   GRUNDSTILE
+=============================== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===============================
+   NAVBAR
+=============================== */
+.navbar {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+    font-weight: 600;
+    color: #2e7d32 !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-logo {
+    height: 55px;
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-link {
+    position: relative;
+    color: #333 !important;
+    font-weight: 500;
+    margin-left: 20px;
+    transition: color 0.4s ease;
+}
+
+.nav-link:hover {
+    color: #2e7d32 !important;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0%;
+    height: 2px;
+    background-color: #2e7d32;
+    transition: width 0.4s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* ===============================
+   HERO SECTION
+=============================== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(to right, #e8f5e9, #e3f2fd);
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+}
+
+/* Fade-in Animation */
+.fade-text {
+    font-weight: 700;
+    font-size: 4rem;
+    color: #2e7d32;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1.2s ease forwards;
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===============================
+   SECTIONS
+=============================== */
+section {
+    padding: 100px 0;
+}
+
+.section-title {
+    font-weight: 600;
+    color: #2e7d32;
+    margin-bottom: 30px;
+}
+
+/* ===============================
+   SERVICE BOXES
+=============================== */
+.service-box {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 25px;
+    min-height: 280px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+}
+
+.service-box h3 {
+    color: #2e7d32;
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    line-height: 1.3;
+}
+
+.service-box p {
+    color: #333;
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.service-box p::before {
+    content: "• ";
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.service-box p + p {
+    margin-top: 15px;
+}
+
+/* ===============================
+   GALERIE
+=============================== */
+.gallery-slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.gallery-track {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+}
+
+.gallery-track img {
+    height: 350px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.gallery-track img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* Galerie-Text Animation */
+.gallery-title-wrapper {
+    margin-bottom: 30px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.gallery-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2e7d32;
+    display: inline-block;
+    transform: translateX(-100%);
+    opacity: 0;
+    animation: slideInLeft 2.5s ease forwards;
+}
+
+@keyframes slideInLeft {
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+/* ===============================
+   KONTAKTBEREICH
+=============================== */
+.contact-section {
+    background-color: #f5f7fa;
+    padding: 100px 20px;
+}
+
+.contact-flex {
+    display: flex;
+    justify-content: center;  /* horizontal zentriert */
+    align-items: stretch;     /* gleiche Höhe der Blöcke */
+    gap: 60px;                /* Abstand zwischen den Blöcken */
+    flex-wrap: wrap;          /* bei kleinen Screens untereinander */
+}
+
+.contact-block {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    max-width: 400px;
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* vertikal mittig */
+    text-align: center;
+}
+.contact-image {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    max-width: 400px;
+    flex: 1 1 300px;
+    display: flex;
+    justify-content: center;  /* horizontal zentriert */
+    align-items: center;      /* vertikal zentriert */
+}
+
+/* Icon selbst */
+.contact-image img.contact-icon {
+    max-height: 100%;     /* passt sich Höhe des Blocks an */
+    width: auto;
+    object-fit: contain;
+}
+
+/* Speziell für dein Icon */
+.contact-icon {
+    max-width: 150px;       /* passt sich der Textmenge an */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 20px;
+    
+}
+
+
+@media (max-width: 768px) {
+    .contact-flex {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .contact-block {
+        max-width: 90%;
+    }
+
+    .contact-icon {
+        max-width: 120px;
+    }
+}
+
+
+/* ===============================
+   FOOTER
+=============================== */
+footer {
+    background-color: #2e7d32;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer a, footer a:visited, footer a:active {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+footer a:hover {
+    opacity: 0.8;
+}
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+@media (max-width: 992px) {
+    .hero h1 { font-size: 3rem; }
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .service-box { min-height: auto; padding: 30px 20px; }
+    .gallery-title { font-size: 2rem; white-space: normal; }
+    .contact-flex { flex-direction: column; gap: 30px; }
+    .contact-block, .contact-image { max-width: 90%; }
+    .contact-icon { max-width: 120px; }
+}
+
+@media (max-width: 576px) {
+    .hero h1 { font-size: 2rem; }
+    .gallery-title { font-size: 1.5rem; }
+    .gallery-track img { height: 180px; }
+    .service-box { padding: 20px 15px; }
+}
